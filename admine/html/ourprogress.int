@@ -1,0 +1,330 @@
+the broblems================================================================
+#bootstarp erorr: navabr color
+#cashe of pass
+=============================
+the did stufs=======================================================
+programing
+#login pages:   completed
+#admin page:    completed
+#client :       completed 
+#logout page:   completed
+#editprofile page: completed
+#cars page :        completed
+#contrat page :      completed
+#bills page :      not completed
+validation:
+#admin page:  completed
+=====================================================================
+something will do====================================================
+le validation de champs en page editprofile n'a pas fait
+=====================================================================
+
+=======git pass
+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
+=======
+<div class="container">
+       <div class="table-responsive">
+            <table class="main-table table table-bordered">
+                <thead>
+                    <tr >
+                        <th>NNI</th>
+                        <th>NOM </th>
+                        <th>PRENOM</th>
+                        <th>TEL</th>
+                        <th>ADRESSE</th>
+                        <th>DELEVRER LE</th>
+                        <th>PERMIS</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+        </div> 
+    </div> 
+  
+    <script>
+
+        let client =[], tbody = document.querySelector(".tbody");
+        <?php while ($client = $prepareQr->fetch()){ ?>
+                client.push(<?php echo json_encode($client); ?>);
+        <?php } ?>
+
+        let line = document.createElement("tr");
+ 
+        for (let i = 0; i < client.length; i++) {
+                let tr = line.cloneNode(true);
+                tbody.appendChild(tr);
+                tr.classList.add("select");
+                tr.setAttribute("id",client[i]["NUMCLIENT"]);
+                tr.innerHTML = `<td>${client[i]["NNI"]}</td>
+                                <td>${client[i]["NOM"]}</td>
+                                <td>${client[i]["PRENOM"]}</td>
+                                <td>${client[i]["TEL"]}</td>
+                                <td>${client[i]["ADRESSE"]}</td>
+                                <td>${client[i]["DELEVRER_LE"]}</td>
+                                <td>${client[i]["PERMIS"]}</td>`;
+        }
+        let trselected = document.querySelectorAll(".select") , eltselected = [];
+        let botn = document.querySelector(".actions");
+        // for (let i = 0; i < trselected.length; i++) {
+        //     trselected[i].addEventListener("click",
+        //         function(){
+        //             if(this.classList.contains("selected")){
+        //             this.classList.remove("selected");
+        //             }else{
+        //                 this.classList.add("selected");
+        //             }
+        //         },true
+        //     )
+        // }
+             
+        $(function (){
+            "use struct";
+            for (let i = 0; i < trselected.length; i++) {
+                $(trselected[i]).click(function (){this.classList.add("selected")}
+                ).click(function (){this.classList.remove("selected");});
+            }   
+            
+        });
+        
+    </script>
+    
+<?php
+include "html/footer.php";
+
+?>
+ 
+
+
+ ======with php
+ <div class="container">
+        <div class="table-responsive">
+        <table class="main-table table table-bordered">
+            <tr >
+                <th>NNI</th>
+                <th>NOM </th>
+                <th>PRENOM</th>
+                <th>TEL</th>
+                <th>ADRESSE</th>
+                <th>DELEVRER LE</th>
+                <th>PERMIS</th>
+            </tr>
+            <?php
+            while ($client = $prepareQr->fetch()) // fetch return each line of the table
+            { ?>
+                <tr class="infoclient" >
+                    <td><?php echo $client["NNI"] ?></td>
+                    <td><?php echo $client["NOM"] ?></td>
+                    <td><?php echo $client["PRENOM"] ?></td>
+                    <td><?php echo $client["TEL"] ?></td>
+                    <td><?php echo $client["ADRESSE"] ?></td>
+                    <td><?php echo $client["DELEVRER_LE"] ?></td>
+                    <td><?php echo $client["PERMIS"] ?></td>
+                </tr>
+            <?php } ?>
+        </table>
+        </div>
+    </div>
+<?php
+include "html/footer.php";
+
+?>
+
+
+
+.wrapper{
+    max-width: 500px;
+    width: 100%;
+    background: #fff;
+    margin: 50px auto;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.125);
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+  }
+  
+  .wrapper .title{
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--main-color);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  
+  .wrapper .form{
+    width: 100%;
+  }
+  
+  .wrapper .form .inputfield{
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .wrapper .form .inputfield label{
+     width: 200px;
+     color: #757575;
+     margin-right: 10px;
+    font-size: 14px;
+  }
+  
+  .wrapper .form .inputfield .input{
+    width: 100%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  .wrapper .form .inputfield .btn{
+    width: 100%;
+     padding: 8px 10px;
+    font-size: 15px; 
+    border: 0px;
+    background: var(--main-color);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+  }
+  
+  .wrapper .form .inputfield .btn:hover{
+    background: #ffd658;
+  }
+  
+  .wrapper .form .inputfield:last-child{
+    margin-bottom: 0;
+  }
+  
+  @media (max-width:420px) {
+    .wrapper .form .inputfield{
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .wrapper .form .inputfield label{
+      margin-bottom: 5px;
+    }
+    .wrapper .form .inputfield.terms{
+      flex-direction: row;
+    }
+  }
+
+
+
+
+  <!-- edit page -->
+    <script src="style/js/jquery.js"></script>
+        <script type="text/javascript">
+        //     let clientInfo = <?php echo json_encode($clientInfo); ?>;
+        //     let editbtn = document.querySelectorAll(".editbtn");
+        //     let arryOfEditBtn = [];
+        //     for (let i = 0; i < editbtn.length; i++){
+        //         arryOfEditBtn.push(editbtn[i].getAttribute("data-sel"));
+        //     }
+            
+        //     document.addEventListener("click",function(elt){
+        //         if(arryOfEditBtn.includes(elt.target.getAttribute("data-sel"))){
+        //     let editCard = document.createElement("div");
+        //     document.body.appendChild(editCard);
+        //     editCard.className = "wrapper";
+        //     editCard.className = "wrapper";
+        //     editCard.innerHTML = `<form action="">
+        //     <div class="title">
+        //     Registration Form
+        //     </div>
+        //     <div class="form">
+        //     <div class="inputfield">
+        //         <label>NOM</label>
+        //         <input type="text" name="nom" class="input" value="${clientInfo[1]}" autocomplate="off">
+        //     </div>  
+        //         <div class="inputfield">
+        //         <label>PRENOM</label>
+        //         <input type="text" name="prenom" value="${clientInfo[2]}" class="input" autocomplate="off">
+        //     </div>  
+        //     <div class="inputfield">
+        //         <label>NNI</label>
+        //         <input type="number" name="nni" value="${clientInfo[3]}" class="input">  
+        //     </div> 
+        //     <div class="inputfield">
+        //         <label>TEL</label>
+        //         <input type="text" class="input" value="${clientInfo[4]}" name="tel" autocomplate="off">
+        //     </div> 
+        //     <div class="inputfield">
+        //         <label>ADRESSE</label>
+        //         <input type="text" class="input" value="${clientInfo[5]}" name="adress" autocomplate="off">
+        //     </div> 
+        //     <div class="inputfield">
+        //         <label>DELEVRER LE</label>
+        //         <input type="date" name="delivredate" value="${clientInfo[6]}" autocomplate="off" class="input">
+        //     </div> 
+        //     <div class="inputfield">
+        //         <label>PERMIS</label>
+        //         <input type="text" class="input" value="${clientInfo[7]}" name="permis" autocomplate="off">
+        //     </div> 
+        //     <div class="inputfield">
+        //         <input type="submit" value="Register" class="btn">
+        //         <button class="btn exitEdit">aniler</button>
+        //     </div>
+        //     </div>
+        // </form>`
+        //         }
+        //     })  
+        </script>        
+
+
+
+
+        <div class="edit-contrat"> 
+            <div class="client-voiture">
+                <div class="client">
+                    <div><label>Nom Complet: </label></div>
+                    <div><label>TEL: </label></div>
+                    <div><label>NNI: </label></div>
+                    <div><label>Adresse: </label></div>
+                    <div><label>Permis: </label></div>
+                </div>
+                <div class="voiture">
+                    <div class="carimage" ><img src="" alt=""></div>
+                    <div class="details" >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="contract-info">
+                <div>
+                    <div class="input">
+                        <label>Date De Location</label>
+                        <div>33/444/555</div>
+                    </div>
+                    <div class="input">
+                        <label>Date De Retour</label>
+                        <div>33/444/555</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="input">
+                        <label>Prix De Location</label>
+                        <div>33/444/555</div>
+                    </div>
+                    <div class="input">
+                        <label>Duree</label>
+                        <div class="dure-sel">
+                            <div class="custom_select">
+                                <div class="typeduree">
+                                </div> 
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
