@@ -16,24 +16,69 @@ if(isset($_SESSION["nom"])){
                 }
             }
     }
-    $prepareQr = $conPDO->prepare("SELECT NUMCONTRACT,cl.NUMCLIENT,v.MARQUE, co.MATRICULE,DATEDEPART,DATEARRIVET,PRIXLOC,cl.NOM, passedtime,cl.PRENOM,co.ETAT 
-                                    FROM contrats co, voiture v ,client cl 
-                                    WHERE co.MATRICULE = v.MATRICULE
-                                    AND co.NUMCLIENT = cl.NUMCLIENT 
-                                    AND archived = ?");
-    $prepareQr->execute(array("non"));
-    ?>
-     <div class="tools">
-            <form action="" class="col-sm-4">
-                <input type="search" name="" id="" class="form-control">
+    if(isset($_POST["search"])){
+        $s = $_POST["search"];
+        $prepareQr = $conPDO->prepare("SELECT NUMCONTRACT,cl.NUMCLIENT,v.MARQUE, co.MATRICULE,DATEDEPART,DATEARRIVET,PRIXLOC,cl.NOM, passedtime,cl.PRENOM,co.ETAT 
+        FROM contrats co, voiture v ,client cl 
+        WHERE co.MATRICULE = v.MATRICULE
+        AND co.NUMCLIENT = cl.NUMCLIENT 
+        AND archived = :non
+        AND (NUMCONTRACT = :n
+        OR v.MARQUE LIKE :S OR co.MATRICULE LIKE :S OR cl.PRENOM LIKE :S OR cl.NOM LIKE :S)");
+        $prepareQr->execute(array("non" => "non","S" => "%".$s."%", "n" => $s));
+    }elseif(isset($_POST["search-date"]) && (!empty($_POST["datedep"] || !empty($_POST["dateret"])))){
+        $dep = $_POST["datedep"];
+         $ret = $_POST["dateret"];
+        $prepareQr = $conPDO->prepare("SELECT NUMCONTRACT,cl.NUMCLIENT,v.MARQUE, co.MATRICULE,DATEDEPART,DATEARRIVET,PRIXLOC,cl.NOM, passedtime,cl.PRENOM,co.ETAT 
+        FROM contrats co, voiture v ,client cl 
+        WHERE co.MATRICULE = v.MATRICULE
+        AND co.NUMCLIENT = cl.NUMCLIENT 
+        AND archived = ?
+        AND (DATEDEPART BETWEEN ? AND ? )");
+        $prepareQr->execute(array("non",$dep,$ret));
+    }else{
+        $prepareQr = $conPDO->prepare("SELECT NUMCONTRACT,cl.NUMCLIENT,v.MARQUE, co.MATRICULE,DATEDEPART,DATEARRIVET,PRIXLOC,cl.NOM, passedtime,cl.PRENOM,co.ETAT 
+        FROM contrats co, voiture v ,client cl 
+        WHERE co.MATRICULE = v.MATRICULE
+        AND co.NUMCLIENT = cl.NUMCLIENT 
+        AND archived = ?");
+        $prepareQr->execute(array("non"));
+    }
+    
+    ?>                                                                                                                                
+     <div class="tools contract-tools">
+       <div class="filter-by" >
+            <form action=""   method="post">
+                <div class="text">
+                <input type="search" name="search" class="form-control">
+                <button class="btn btn-primary"><i class="fa-solid fa-search"></i></button>
+                </div>
             </form>
-            <div class="add-contrat">
-                <a href="contracactions.php?action=ajouter">
-                    <i class="fa-solid fa-file-signature"></i>
-                    <i class="fa-solid fa-plus" style="font-size: 5px"></i>
-                </a>
-                <div class="archive"><i class="fa-solid fa-folder" style="font-size:25px; color: grey"></i></div>               
-            </div>
+            <form action=""   method="post">
+                <div class="time">
+                    <div class="de">
+                        <label>De</label>
+                    <input type="date" name="datedep" class="form-control">
+                    </div>
+                    <div class="a">
+                    <label>A</label>
+                    <input type="date" name="dateret" class="form-control">
+                    </div>
+                <button name="search-date" class="btn btn-primary"><i class="fa-solid fa-search"></i></button>
+                </div>
+            </form>
+            <?php if((isset($_POST["search"]) && !empty($_POST["search"])) || (isset($_POST["search-date"]) && (!empty($_POST["datedep"] || !empty($_POST["dateret"])))) ){?>
+            <form action="" method="post">
+                <button class="btn btn-primary">Tout</button>
+            </form>
+            <?php } ?>
+        </div>
+        <div class="add-contrat">
+            <a href="contracactions.php?action=ajouter">
+                <i class="fa-solid fa-file-signature" style="font-size: 25px;margin-right: 10px"></i>
+            </a>
+            <div class="archive"><i class="fa-solid fa-folder" style="font-size:25px; color: grey"></i></div>               
+        </div>
      </div>
      <div class="container">
         <div class="table-responsive">

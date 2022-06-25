@@ -21,7 +21,7 @@ body{
 }
 /* #ff5f00 #c90752*/
 :root{ 
-    --main-color:  #f9d806;
+    --main-color:  #007bff;
 }
 .updated{
   position: absolute;
@@ -95,15 +95,6 @@ body{
     background-color: var(--main-color);
 }
 /* tables style */
-.tools{
-    margin: 60px 0 10px;
-    display: flex;
-    padding: 0 20px;
-    /* position: fixed; */
-}
-/* [type="search"]{
-
-} */
 th{
     background-color: var(--main-color);
 }
@@ -675,19 +666,22 @@ tr{
   height: 500px;
   display: none;
 }
-.edit-contrat .btn-class{
+.edit-contrat .btn-class,
+.rervation-preparation .form .btn-class{
   display: flex;
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.edit-contrat .btn-class .inputfield{
+.edit-contrat .btn-class .inputfield,
+.rervation-preparation .form .btn-class .inputfield{
   flex-basis: 31%;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
 }
-.edit-contrat .btn-class .inputfield .btn{
+.edit-contrat .btn-class .inputfield .btn,
+.rervation-preparation .form .btn-class .inputfield .btn{
   width: 100%;
   padding: 8px 10px;
   font-size: 15px; 
@@ -703,7 +697,8 @@ tr{
     flex-basis: 31%;
   }
 } */
-.edit-contrat  .inputfield .btn:hover{
+.edit-contrat  .inputfield .btn:hover,
+.rervation-preparation .form .btn-class .inputfield .btn:hover{
   background: #ffd658;
 }
 /* errors */
@@ -742,7 +737,10 @@ tr{
 .show-error-age-aj,
 .show-error-pass-aj,
 .show-error-passconf-aj,
-.show-error-img-aj{
+.show-error-img-aj,
+.show-error-email-aj,
+.show-error-dateress,
+.show-error-duree{
   background-color: #fff;
   padding: 5px;
   border-radius: 3px;
@@ -762,7 +760,6 @@ tr{
 .admin .genrale-infos{
  padding: 10px;
  margin: 0;
- /* border: 3px solid red; */
  flex-basis: 20%; 
  
 }
@@ -792,6 +789,8 @@ tr{
   flex-basis: 80%;
   padding-top: 20px;
   padding-left: 20px;
+  display: flex;
+  justify-content: space-around;
 }
 .admin .genrale-details .reception{
   background-color: #d5dbd9;
@@ -822,6 +821,14 @@ tr{
 .admin .genrale-details .reception .contrats-encour .contrat-encour .cont-detals{
   flex-basis: 60%;
 }
+.admin .genrale-details .reception .contrats-encour .contrat-encour .res-details{
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-basis: 50%;
+}
+
 .admin .genrale-details .reception .contrats-encour .contrat-encour .cont-detals h4,
 .admin .genrale-details .reception .contrats-encour .contrat-encour .cont-detals span{
   font-weight: bold;
@@ -835,24 +842,37 @@ tr{
   justify-content: space-between;
   flex-basis: 40%;
 }
+.admin .genrale-details .reception .contrats-encour .contrat-encour .date-ress{
+  width: 200px;
+  flex-basis: 48%;
+}
 .admin .genrale-details .reception .contrats-encour .contrat-encour .date-actions .actions{
   display: flex;
   justify-content: flex-end;
 }
-.list-informations-contrat{
+.list-informations-contrat,
+.list-informations-reservation,
+.rervation-preparation{
   background-color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
   padding: 10px 20px;
-  display: none
 }
-.list-informations-contrat .infos-contrat .client-voiture{
+.list-informations-reservation,
+.list-informations-contrat{
+  display: none;
+}
+.list-informations-contrat .infos-contrat .client-voiture,
+.list-informations-reservation .infos-contrat .client-voiture,
+.rervation-preparation .client-voiture{
   display: flex;
   justify-content: space-between;
 }
-.list-informations-contrat .infos-contrat .client-voiture .voiture{
+.list-informations-contrat .infos-contrat .client-voiture .voiture,
+.list-informations-reservation .infos-contrat .client-voiture .voiture,
+.rervation-preparation .client-voiture .voiture{
   flex-basis: 50%;
   display: flex;
   align-items: center;
@@ -865,27 +885,38 @@ tr{
   border-radius: 5px;
   min-width: 50%;
 }
-.list-informations-contrat .infos-contrat .client-voiture .client{
+.list-informations-contrat .infos-contrat .client-voiture .client,
+.list-informations-reservation .infos-contrat .client-voiture .client,
+.rervation-preparation .client-voiture .client{
   border: 1px solid black;
   border-radius: 3px;
   padding: 5px;
   min-width: 50%;
 }
-.list-informations-contrat .infos-contrat .client-voiture .client label{
+.list-informations-contrat .infos-contrat .client-voiture .client label,
+.list-informations-reservation .infos-contrat .client-voiture .client label,
+.rervation-preparation .client-voiture .client label{ 
   color: var(--main-color);
 }
-.list-informations-contrat .infos-contrat .client-voiture .voiture span{
+.list-informations-contrat .infos-contrat .client-voiture .voiture span,
+.list-informations-reservation .infos-contrat .client-voiture .voiture span,
+.rervation-preparation .client-voiture .voiture span{
   display: block;
   color: var(--main-color);
   font-weight: bold;
 }
-.list-informations-contrat .infos-contrat .client-voiture .voiture .carimage{
+.list-informations-contrat .infos-contrat .client-voiture .voiture .carimage,
+.list-informations-reservation .infos-contrat .client-voiture .voiture .carimage,
+.rervation-preparation  .client-voiture .voiture .carimage{
   flex-basis: 50%;
 }
-.list-informations-contrat .infos-contrat .client-voiture .voiture .carimage img{
+.list-informations-contrat .client-voiture .voiture .carimage img,
+.list-informations-reservation .infos-contrat .client-voiture .voiture .carimage img,
+.rervation-preparation .client-voiture .voiture .carimage img{
   max-width: 100%;
 }
-.list-informations-contrat .xmark{
+.list-informations-contrat .xmark,
+.list-informations-reservation .xmark{
   font-weight: bold;
   display: flex;
   justify-content: flex-end;
@@ -893,6 +924,7 @@ tr{
   font-size: 20px;
 }
 .list-informations-contrat .xmark,
+.list-informations-reservation .xmark,
 .admin .genrale-details .reception .contrats-encour .contrat-encour .date-actions .actions .ibtn{
   position: relative;
 }
@@ -905,7 +937,8 @@ tr{
   border-radius: 50%;
   cursor: pointer;
 }
-.list-informations-contrat .xmark .overx{
+.list-informations-contrat .xmark .overx,
+.list-informations-reservation .xmark .overx{
   position: absolute;
   top: 0;
   left: 0;
@@ -913,21 +946,208 @@ tr{
   height: 100%;
   cursor: pointer;
 }
-.div-carb-prog{
-  margin: 100px; /* will remove*/
-  border: 1px solid rgb(212, 61, 61);
-  width: 200px;
-  height: 30px;
-  position: relative;
+.list-informations-contrat .location-info,
+.list-informations-reservation .date-loc,
+.rervation-preparation .location-info{
+ display: flex;
+ align-items: center;
 }
-.carbur-prog{
+.list-informations-reservation .date-loc{
+  padding-top: 10px;
+  justify-content: space-around;
+}
+.list-informations-contrat .location-info .date-loc,
+.list-informations-contrat .location-info .carb-info,
+.rervation-preparation .location-info .date-loc,
+.rervation-preparation .location-info .carb-info{
+ flex-basis: 50%;
+}
+.rervation-preparation .form{
+  width: 100%;
+}
+.rervation-preparation .form .fields{
+  display: flex;
+  justify-content: center;
+}
+.rervation-preparation .form .fields .input{
+  flex-basis: 50%;
+}
+.rervation-preparation .form .fields .input input{
+  width: 90%;
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  outline: none;
+  border-color: rgb(150, 149, 149);
+}
+.rervation-preparation .form .fields .input input:focus{
+  border-color: var(--main-color);
+}
+.rervation-preparation .btn-class{
+  padding-top: 15px
+}
+.carb-prog{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.carb-prog p{
+  width: 200px;
+  height: 70px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+.carb-prog p span{
+  width: 150px;
+  height: 150px;
+  border: 20px solid;
+  border-color: rgb(51, 51, 51) rgb(51, 51, 51) #ddd #ddd;
+  border-radius: 50%;
+  transform: rotate(135deg);
+  transform: 0.5s;
+}
+.carb-prog p small{
   position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgb(20, 212, 20);
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%,-30%);
+  font-weight: bold;
+  font-size: 20px;
+}
+.carb-prog input{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -4px;
+  width: 100px;
+  cursor: pointer;
+}
+.carb-prog label{
+  text-align: center;
 }
 .empty{
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   margin-top: 200px;
+}
+/* facutre page style */
+.recue{
+  width: 100%;
+  min-height: 30em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 60px;
+}
+.recue .recue-content{
+background-color: #fff;
+width: 450px;
+}
+.recue .recue-content .logo-contact{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 2px dashed black;
+}
+.recue .recue-content .logo-contact span{
+  flex-basis: 30%;
+}
+.recue .recue-content .logo-contact .logo img{
+  width: 70px;
+  margin: auto;
+}
+.recue .recue-content .fact-details{
+  padding: 10px 15px;
+}
+.recue .recue-content .date-now{
+  margin-top: 10px;
+  border-top: 2px dashed black;
+  padding: 5px;
+  text-align: center;
+}
+.recue button{
+  margin-top: 20px;
+  padding: 5px 15px;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #d5dbd9;
+}
+.recue .recue-content .fact-details .prix span{
+  color: green;
+  font-weight: bold;
+}
+.recue button:hover{
+  background-color: #4197e7;
+}
+@media print{
+  .recue button{
+    visibility: hidden;
+  }
+  .recue .recue-content{
+    border: 2px solid black;
+  }
+}
+
+/* search */
+
+.tools{
+  margin: 60px 0 10px;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-around;
+}
+.fact-tools .filter-by,
+.contract-tools .filter-by,
+.client-tools .filter-by{
+  /* background-color: green; */
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 80%;
+}
+
+.fact-tools .filter-by form:first-child,
+.contract-tools .filter-by form:first-child,
+.client-tools .filter-by form:first-child{
+  flex-basis: 40%;
+}
+.fact-tools .filter-by form:nth-child(2),
+.contract-tools .filter-by form:nth-child(2),
+.client-tools .filter-by form:nth-child(2){
+  flex-basis: 55%;
+}
+/* .fact-tools .filter-by form:last-child {
+  
+} */
+.fact-tools .filter-by form .text,
+.fact-tools .filter-by form .time,
+.contract-tools .filter-by form .text,
+.contract-tools .filter-by form .time,
+.client-tools .filter-by form .text,
+.client-tools .filter-by form .time{
+ display: flex;
+}
+.fact-tools .filter-by form .time div,
+.contract-tools .filter-by form .time div,
+.client-tools .filter-by form .time div{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.fact-tools .filter-by form .time div label,
+.contract-tools .filter-by form .time div label,
+.client-tools .filter-by form .time div label{
+  padding: 0 10px;
+  color:rgb(255, 255, 255);
+}
+.client-tools .filter-by form .time div label{
+  width: 150px
 }

@@ -2,12 +2,18 @@
 session_start();
 
 require_once("connect.php");  
+if(isset($_POST["search"])){
+    $s = $_POST["search"];
+$prepareQr = $conPDO->prepare("SELECT * FROM  client
+                                WHERE NNI LIKE :s OR NOM LIKE :s OR PRENOM LIKE :s OR TEL LIKE :s OR ADRESSE LIKE :s OR PERMIS LIKE :s"); 
+$prepareQr->execute(array("s" => "%".$s."%")); 
+$clients = $prepareQr->fetchAll();
+$clients = array_reverse($clients);
+}
 $prepareQr = $conPDO->prepare("SELECT * FROM  client"); 
 $prepareQr->execute(); 
 $clients = $prepareQr->fetchAll();
-
 $clients = array_reverse($clients);
-
 
 
 
@@ -15,12 +21,30 @@ $clients = array_reverse($clients);
 include "html/header.php";
 include "html/nav.php";
 ?>
-    <div class="tools container">
-    <form action="" class="col-sm-4">
-        <input type="search" name="" id="" class="form-control">
-    </form>
+    <div class="tools client-tools">
+    <div class="filter-by" >
+            <form action=""   method="post">
+                <div class="text">
+                <input type="search" name="search" class="form-control">
+                <button class="btn btn-primary"><i class="fa-solid fa-search"></i></button>
+                </div>
+            </form>
+            <form action="" method="post">
+                <div class="time">
+                    <div class="de">
+                        <label>Delivrer le</label>
+                        <input type="date" name="deliver_le" class="form-control">
+                    </div>
+                <button name="search-date" class="btn btn-primary"><i class="fa-solid fa-search"></i></button>
+                </div>
+            </form>
+            <?php if((isset($_POST["search"]) && !empty($_POST["search"])) || (isset($_POST["search-date"]) && (!empty($_POST["datedep"] || !empty($_POST["dateret"])))) ){?>
+            <form action="" method="post">
+                <button class="btn btn-primary">Tout</button>
+            </form>
+            <?php } ?>
+        </div>
     <a href="clientactions.php?action=ajoute"><i class="fa-solid fa-user-plus"></i></a>
-    <a href="#"><i class="fa-solid fa-folder-plus"></i></a>
     </div>
     <div class="container">
         <div class="table-responsive">

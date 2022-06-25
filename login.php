@@ -12,6 +12,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($row > 0){
             $_SESSION["nom"] = $client["NOM"];
             $_SESSION["img"] = $client["CLIENTIMG"];
+            $_SESSION["client-id"] = $client["NUMCLIENT"];
             header("Location: index.php");
         }else{
             $wornning = "L'email et le mot de pass sont incompatible";
@@ -22,8 +23,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <div class="login-form-container">
-
-    <span id="close-login-form" class="fas fa-times" style="background-color:red"></span>
 
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <h3>Client Login</h3>

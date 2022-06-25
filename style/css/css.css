@@ -18,7 +18,10 @@
     text-transform: capitalize;
     transition: .2s linear;
 }
-
+input:hover,
+textarea:hover{
+    border-color: var(--yellow) !important;
+}
 html{
     font-size: 62.5%;
     overflow-x: hidden;
@@ -131,6 +134,7 @@ section{
 .header.active{
     padding:2rem 9%;
     box-shadow: var(--box-shadow);
+    background-color: white;
 }
 
 #menu-btn{
@@ -521,7 +525,8 @@ section{
     padding-bottom: 4rem;
 }
 
-.featured .featured-slider .box{
+.featured .featured-slider .box,
+.marque-content .box{
     padding:2rem;
     text-align: center;
     box-shadow: var(--box-shadow);
@@ -529,26 +534,32 @@ section{
     border-radius: .5rem;
 }
 
-.featured .featured-slider .box img{
+.featured .featured-slider .box img,
+.marque-content .box img{
     height: 15rem;
     max-width: 100%;
 }
 
-.featured .featured-slider .box:hover img{
+.featured .featured-slider .box:hover img,
+.marque-content .box:hover img{
     transform: scale(.9);
 }
 
-.featured .featured-slider .box .content h3{
+.featured .featured-slider .box .content h3,
+.marque-content .content h3{
     font-size: 2.2rem;
     color:var(--black);
 }
-.featured .featured-slider .box .content .carburant{
+.featured .featured-slider .box .content .carburant,
+.marque-content .content .carburant{
     font-size: 2rem;
 }
-.featured .featured-slider .box .content .price{
+.featured .featured-slider .box .content .price,
+.marque-content .content .price{
     font-size: 2rem;
 }
-.featured .featured-slider .box .content .price span{
+.featured .featured-slider .box .content .price span,
+.marque-content .content .price span{
     color: green;
 }
 
@@ -647,20 +658,13 @@ section{
     color:var(--yellow);
     font-size: 1.7rem;
 }
-
+.contact{
+    background-color: #eee;
+}
 .contact .row{
     display: flex;
     flex-wrap: wrap;
     gap:1.5rem;
-}
-
-.contact .row .map{
-    flex:1 1 42rem;
-    width: 100%;
-    padding:2rem;
-    box-shadow: var(--box-shadow);
-    border:var(--border);
-    border-radius: .5rem;
 }
 
 .contact .row form{
@@ -670,6 +674,7 @@ section{
     border:var(--border);
     text-align: center;
     border-radius: .5rem;
+    background-color: white;
 }
 
 .contact .row form h3{
@@ -819,4 +824,98 @@ section{
         font-size: 3rem;
     }
 
+}
+
+/* client reservation page  */
+/* .reservation{
+
+} */
+.reservation .car-details{
+    display: flex;
+    align-items: center;
+}
+.reservation .car-details .car-img{
+    flex-basis: 50%;
+}
+.reservation .car-details .car-img img{
+    max-width: 100%;
+}
+.reservation .car-details .car-info{
+    flex-basis: 50%;
+    border-left: 2px solid var(--yellow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 210px;
+}
+.reservation .car-details .car-info div{
+    font-size: 20px;
+    background-color: var(--yellow);
+    width: 80%;
+    font-weight: bold;
+}
+.reservation .car-details .car-info div span{
+    color: green;
+}
+.reservation .reservation-temps{
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    justify-content: space-between;
+}
+.reservation .reservation-temps .res-date,
+.reservation .reservation-temps .res-duree{
+    flex-basis:  49%;
+}
+.reservation .reservation-temps .res-date label,
+.reservation .reservation-temps .res-duree label{
+    font-size: 18px;
+}
+.reservation .reservation-temps .res-duree div:nth-child(1){
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.reservation .reservation-temps .res-duree div:nth-child(1) div{
+    border: 1px solid var(--yellow);
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    flex-basis: 50%;
+    border-radius: 2px;
+
+}
+.reservation .reservation-temps .res-duree div:nth-child(1) input{
+    width: 40%;
+    padding: 7px;
+}
+.reservation .reservation-temps .res-duree div:nth-child(1) select{
+    background-color: var(--yellow);
+}
+.reservation .reservation-temps .res-date div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.reservation .reservation-temps .res-date div:nth-child(1) input{
+    border: 1px solid var(--yellow);
+    padding: 7px;
+}
+.marque-content{
+    padding:3rem 9%;
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+@media (max-width: 798px){
+    .marque-content .box{
+        flex-basis: 100%;
+    }
+}
+@media (min-width: 797px){
+    .marque-content .box{
+        flex-basis: 30%;
+    }
 }

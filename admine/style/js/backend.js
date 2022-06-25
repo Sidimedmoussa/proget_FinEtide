@@ -174,6 +174,26 @@ $(function (){
         }
     })
     document.addEventListener("click", function(e){
+        if (e.target.getAttribute("name") == "email"){
+            $(".show-error-email-aj").hide();
+        }
+    })
+    document.addEventListener("click", function(e){
+        if (e.target.getAttribute("name") == "dateress"){
+            $(".show-error-dateress").hide();
+        }
+    })
+    document.addEventListener("click", function(e){
+        if (e.target.getAttribute("name") == "duree"){
+            $(".show-error-duree").hide();
+        }
+    })
+    document.addEventListener("click", function(e){
+        if (e.target.getAttribute("name") == "type-duree"){
+            $(".show-error-type-duree").hide();
+        }
+    })
+    document.addEventListener("click", function(e){
         if (e.target.hasAttribute("ibtn-info")){
             document.querySelector(".list-informations-contrat .infos-contrat").innerHTML=`
                                 <div class="client-voiture">
@@ -195,14 +215,19 @@ $(function (){
                                 </div>
                                 <div class="location-info">
                                     <div class="date-loc">
-                                        <div class="date-label">
-                                            <label>Date De Location</label>
-                                            <div class="date">${e.target.getAttribute("carb")}</div>
-                                        </div>
-                                        <div class="date-label">
-                                            <label>Date De Location</label>
-                                            <div class="date">${e.target.getAttribute("carb")}</div>
-                                        </div>
+                                            <div class="date">${"<span style='font-weight: bold'>Duree: </span>" + e.target.getAttribute("duree") + " " + e.target.getAttribute("tduree")}</div>
+                                            <div class="date">${"<span style='font-weight: bold'>De: </span>" + e.target.getAttribute("dateloc")}</div>
+                                            <div class="date">${"<span style='font-weight: bold'>A: </span>" + e.target.getAttribute("dateret")}</div>
+                                            <div class="date">${"<span style='font-weight: bold'>Montant: </span>" + e.target.getAttribute("prloc") + " UM"}</div>
+                                    </div>
+                                    <div class="carb-info">
+                                      <div class="carb-prog">
+                                        <p>
+                                         <span style="transform: rotate(${1.8 * e.target.getAttribute("carbprog") + 135}deg)"></span>
+                                         <small>${e.target.getAttribute("carbprog")}%</small>
+                                        </p>
+                                        <label>${e.target.getAttribute("carb")}</label>
+                                       </div> 
                                     </div>
                                 </div>
                             `;
@@ -214,10 +239,54 @@ $(function (){
             $(".list-informations-contrat").hide();
         }
     })
+    // reservation
+    document.addEventListener("click", function(e){
+        if (e.target.hasAttribute("ibtn-info-res")){
+            document.querySelector(".list-informations-reservation .infos-contrat").innerHTML=`
+                                <div class="client-voiture">
+                                    <div class="client">
+                                        <div><label>Nom Complet: </label>${e.target.getAttribute("cmp-name")}</div>
+                                        <div><label>TEL: </label>${e.target.getAttribute("tel")}</div>
+                                        <div><label>NNI: </label>${e.target.getAttribute("nni")}</div>
+                                        <div><label>Adresse: </label>${e.target.getAttribute("adr")}</div>
+                                        <div><label>Permis: </label>${e.target.getAttribute("permis")}</div>
+                                    </div>   
+                                    <div class="voiture">
+                                        <div class="carimage" ><img src="${e.target.getAttribute("img")}" alt=""></div>
+                                        <div class="details" >
+                                        <span>${e.target.getAttribute("mat")}</span>
+                                        <span>${e.target.getAttribute("mod")}</span>
+                                        <span>${e.target.getAttribute("carb")}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="date-loc">
+                                        <div class="date">${"<span style='font-weight: bold'>Duree: </span>" + e.target.getAttribute("duree") + " " + e.target.getAttribute("tduree")}</div>
+                                        <div class="date">${"<span style='font-weight: bold'>De: </span>" + e.target.getAttribute("dateloc")}</div>
+                                        <div class="date">${"<span style='font-weight: bold'>A: </span>" + e.target.getAttribute("dateret")}</div>
+                                </div>
+                            `;
+                            $(".list-informations-reservation").show();
+        }
+    })
+    document.addEventListener("click", function(e){
+        if (e.target.hasAttribute("xmark-ibtn-res")){
+            $(".list-informations-reservation").hide();
+        }
+    })
     setTimeout(function(){
         $(".updated").hide();
     },1000)
+
 });
+// progress
+let prog = document.getElementById("max");
+prog.oninput = () => {
+    let = dprog = prog.value - 135;
+    let ddprog = dprog / 1.8;
+    document.querySelector(".carb-prog p span").style.transform = `rotate(${prog.value}deg)`;
+    document.querySelector(".carb-prog p small").innerText = ddprog.toFixed(2) + '%';
+}
 // let updated = document.querySelector(".updated");
 // setTimeout(function(){
 //     updated.style.display = "none";

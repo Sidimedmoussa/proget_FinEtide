@@ -23,6 +23,8 @@ include "admine/connect.php";
         $erorshowpassconf = "";
         $erorimg = "";
         $erorshowimg = "";
+        $emailEror = "";
+        $erorshowEmail = "";
    if($_SERVER["REQUEST_METHOD"] == "POST"){
             $nom             = $_POST["nom"];
             $prenom          = $_POST["prenom"];
@@ -48,8 +50,8 @@ include "admine/connect.php";
                if($image["error"] === 0){
                    $specifieImg = uniqid(true).".".$imageExtension;
                    $imageNameSuccuss = $specifieImg;
-                //    $toFolder = "images/clients/".$specifieImg;
-                //    move_uploaded_file($tmpName,$toFolder);
+                   $toFolder = "images/clients/".$specifieImg;
+                   move_uploaded_file($tmpName,$toFolder);
                }else{
                 $erorimg = "cette photo n'est pas autoriser";
                 $erorshowimg = "show-error-img-aj";
@@ -133,7 +135,11 @@ include "admine/connect.php";
                     $erorshowPermis = "show-error-permis-aj";
                 }
                 //email
-                if(filter_var($email,FILTER_VALIDATE_EMAIL) ==""){
+                if(empty($email)){
+                    $emailEror = "<div><i class='fa-solid fa-circle-exclamation'></i> L'email ne peut pas etre vide </div>";
+                    $erorshowEmail = "show-error-email-aj";
+                }
+                if(filter_var($email,FILTER_VALIDATE_EMAIL) =="" && empty($emailEror)){
                     header("Location: logout.php");
                 }
                 //password
@@ -171,15 +177,15 @@ include "admine/connect.php";
                  }
                  
 
-            if(empty($NameEror) && empty($preNameEror) && empty($nniEror) && empty($telEror) && empty($adrEror) && empty($delEror) && empty($permisEror)){
-               
+            if(empty($datenessEror) && empty($passEror) && empty($erorimg) && empty($emailEror) && empty($NameEror) && empty($preNameEror) && empty($nniEror) && empty($telEror) && empty($adrEror) && empty($delEror) && empty($permisEror)){
+                $query = $conPDO -> prepare("INSERT INTO client (NOM, PRENOM, NNI, TEL, ADRESSE, DELEVRER_LE, PERMIS,CLIENTIMG,EMAIL,PASS)
+                VALUES (?,?,?,?,?,?,?,?,?,?)");
+                $query -> execute(array($nom, $prenom, $nni, $tel,$adr, $deliver, $permis,$imageNameSuccuss,$email,$pass));
+                header("Location: login.php");
             }
 
         }   
   ?>
-  <div class="erorrdiv">
-
-  </div>
 
   <div class="login-form-container signin">
   
@@ -249,7 +255,10 @@ include "admine/connect.php";
                 </div>
               </div>
               <div>
-                 <input type="email" name="email" placeholder="EMAIL" class="box">
+                 <input type="email" name="email" value=' ' placeholder="EMAIL" class="box">
+                 <div class="errors-aj <?php echo $erorshowEmail ?>">
+                   <?php echo $emailEror;?>
+                </div>
               </div>
           </div>
           <div >

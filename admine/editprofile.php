@@ -98,7 +98,7 @@ include "connect.php";
                   </div> 
                   <div class="inputfield">
                         <label>EMAIL</label>
-                        <input type="email" name="email" value="<?php echo $khadija["Email"];?>" class="input"  autocomplate="off">
+                        <input type="email" name="email" value="<?php echo $khadija["email"];?>" class="input"  autocomplate="off">
                   </div>  
                   <div class="inputfield">
                      <input type="submit" value="ENREGISTRER" class="btn">

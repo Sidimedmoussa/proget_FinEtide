@@ -1,6 +1,6 @@
 <?php 
    session_start();
-   if (isset($_SESSION["nom"])){
+   if (isset($_SESSION["is-admin"])){
         header("Location: admin.php");
     }
     include "html/header.php";
@@ -16,6 +16,7 @@
        if($isRowExist > 0){
            $_SESSION["nom"] = $nom;
            $_SESSION["id"] = $arr["idAD"];
+           $_SESSION["is-admin"] = "";
            header("Location: admin.php");
            exit;
        }

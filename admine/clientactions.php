@@ -27,7 +27,7 @@
             $nni             = $_POST["nni"];
             $tel             = $_POST["tel"];
             $adr             = $_POST["adress"];
-            $deliver         = $_POST["delivredate"];
+            $deliver         = date("Y-m-d",strtotime($_POST["delivredate"]));
             $permis          = $_POST["permis"];   
             // validation 
                 // name and prename 
@@ -109,9 +109,12 @@
                     $erorshowPermis = "show-error-permis-aj";
                 }
             if(empty($NameEror) && empty($preNameEror) && empty($nniEror) && empty($telEror) && empty($adrEror) && empty($delEror) && empty($permisEror)){
+                echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
                 $query = $conPDO -> prepare("INSERT INTO client (NOM, PRENOM, NNI, TEL, ADRESSE, DELEVRER_LE, PERMIS)
                                                 VALUES (?,?,?,?,?,?,?)");
-                $query -> execute(array( $nom, $prenom, $nni, $tel,$adr, $deliver, $permis)); 
+                $query -> execute(array($nom, $prenom, $nni, $tel,$adr, $deliver, $permis)); 
                 if(isset($_POST["fromcontrat"])){
                     header("location: contracactions.php?action=ajouter");
                 }elseif(isset($_POST["fromcontratedit"])){
@@ -219,10 +222,13 @@
         } // end ajouter page
         elseif($action == "sup"){ // supp
             $clientID = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]): 0;
-            
+            $contID = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]): 0;
+            $query = $conPDO -> prepare("DELETE FROM contrats WHERE NUMCLIENT = ?");
+            $query -> execute(array($clientID));
             $query = $conPDO -> prepare("DELETE FROM client WHERE NUMCLIENT = ?");
             $query -> execute(array($clientID));
             header("location: client.php");
+            exit;
         }elseif($action == "edit"){// edite page
             $clientID = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]): 0; 
             $prepareQr = $conPDO->prepare("SELECT * FROM  client WHERE NUMCLIENT = ?"); 

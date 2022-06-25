@@ -5,6 +5,14 @@
     $query -> execute();
     $marques = $query->fetchAll();
 
+    $query = $conPDO -> prepare("SELECT * FROM `voiture`");
+    $query -> execute();
+    $voitCount = $query -> rowCount();
+
+    $query = $conPDO -> prepare("SELECT * FROM `client`");
+    $query -> execute();
+    $clientCount = $query -> rowCount();
+
     $query = $conPDO -> prepare("SELECT * FROM `voiture` where ETAT = ?");
     $query -> execute(array("non"));
     $voitures = $query->fetchAll();
@@ -20,16 +28,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="style/css/all.min.css"> -->
     <!-- <link rel="stylesheet" href="style/css/bootstrap.min.css" /> -->
+    <link rel="icon" href="images/ic.ico" sizes="292x292">
     <link rel="stylesheet" href="style/css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style/css/css.css">
-
+    <title>wettak</title>
 </head>
 <body>
 <header class="header">
 
     <div id="menu-btn" class="fas fa-bars"></div>
 
-    <a href="#" class="logo"><span>L</span>ogo</a>
+    <a href="#" class="logo">wet<span>TAK</span></a>
 
     <nav class="navbar">
         <a href="#home">Acceuil</a>
@@ -45,7 +54,8 @@
         <div id="profile-client">
         <img src="images/clients/<?php echo $_SESSION["img"];?>" alt="">
         <div class="profile">
-            <a href="logout.php">Logout</a>
+            <a href="clientedit.php">Editer</a>
+            <a href="logout.php">Deconnexion</a>
         </div>
         </div>
     <?php }else{ ?>
@@ -95,7 +105,7 @@
                 <img src="admine/images/marque/<?php echo $marque['marqueImg'];?>" alt="">
                 <div class="content">
                     <h3><?php echo $marque['marqueName']?></h3>
-                    <a href="#" class="btn">check out</a>
+                    <a href="actions.php?action=voiture&marque=<?php echo $marque['marqueName']?>" class="btn">voire les voitures</a>
                 </div>
             </div>
 <?php } ?>
@@ -114,7 +124,7 @@
     <div class="icons">
         <i class="fas fa-home"></i>
         <div class="content">
-            <h3>150+</h3>
+            <h3><?php echo count($marques)?></h3>
             <p>marques</p>
         </div>
     </div>
@@ -122,7 +132,7 @@
     <div class="icons">
         <i class="fas fa-car"></i>
         <div class="content">
-            <h3>4770+</h3>
+            <h3><?php echo $voitCount; ?>+</h3>
             <p>voitures</p>
         </div>
     </div>
@@ -130,7 +140,7 @@
     <div class="icons">
         <i class="fas fa-users"></i>
         <div class="content">
-            <h3>320+</h3>
+            <h3><?php echo $clientCount; ?>+</h3>
             <p>clients satisfaits</p>
         </div>
     </div>
@@ -140,209 +150,17 @@
 <section class="featured" id="voitues">
 
     <h1 class="heading"> <span>Les voitures</span> disponibles </h1>
-        
-    <!-- <div class="swiper featured-slider">
-
-       <div class="swiper-wrapper">
-            <div class="swiper-slide box">
-                <img src="images/car-4.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
-       </div>
-
-       <div class="swiper-pagination"></div>
-
-    </div>
-
-    <div class="swiper featured-slider">
-
-        <div class="swiper-wrapper">
- 
-             <div class="swiper-slide box">
-                 <img src="images/car-8.png" alt="">
-                 <div class="content">
-                     <h3>new model</h3>
-                     <div class="stars">
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star-half-alt"></i>
-                     </div>
-                     <div class="price">$55,000/-</div>
-                     <a href="#" class="btn">check out</a>
-                 </div>
-             </div>
- 
-        </div>
- 
-        <div class="swiper-pagination"></div>
- 
-     </div> -->
 
 </section>
 <!-- end -->
-<section class="services" id="services">
-
-    <h1 class="heading"> our <span>services</span> </h1>
-
-    <div class="box-container">
-
-        <div class="box">
-            <i class="fas fa-car"></i>
-            <h3>car selling</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
-            <a href="#" class="btn"> read more</a>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-tools"></i>
-            <h3>parts repair</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
-            <a href="#" class="btn"> read more</a>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-car-crash"></i>
-            <h3>car insurance</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
-            <a href="#" class="btn"> read more</a>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-car-battery"></i>
-            <h3>battery replacement</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
-            <a href="#" class="btn"> read more</a>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-gas-pump"></i>
-            <h3>oil change</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
-            <a href="#" class="btn"> read more</a>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-headset"></i>
-            <h3>24/7 support</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
-            <a href="#" class="btn"> read more</a>
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<section class="newsletter">
-    
-    <h3>subscribe for latest updates</h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, suscipit.</p>
-
-   <form action="">
-        <input type="email" placeholder="enter your email">
-        <input type="submit" value="subscribe">
-   </form>
-
-</section>
 
 <section class="reviews" id="reviews">
 
-    <h1 class="heading"> client's <span>review</span> </h1>
+    <h1 class="heading"><span>commentaires</span> de client</h1>
 
     <div class="swiper review-slider">
 
-        <div class="swiper-wrapper">
-
-            <div class="swiper-slide box">
-                <img src="images/pic-1.png" alt="">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
-                    <h3>john deo</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="images/pic-2.png" alt="">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
-                    <h3>john deo</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="images/pic-3.png" alt="">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
-                    <h3>john deo</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="images/pic-4.png" alt="">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
-                    <h3>john deo</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="images/pic-5.png" alt="">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
-                    <h3>john deo</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
+            <!-- <div class="swiper-slide box">
                 <img src="images/pic-6.png" alt="">
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
@@ -355,7 +173,7 @@
                         <i class="fas fa-star-half-alt"></i>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
@@ -367,19 +185,15 @@
 
 <section class="contact" id="contact">
 
-    <h1 class="heading"><span>contact</span> us</h1>
+    <h1 class="heading"><span>contacter</span> nous</h1>
 
     <div class="row">
 
-        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1632137920043!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
 
         <form action="">
-            <h3>get in touch</h3>
-            <input type="text" placeholder="your name" class="box">
-            <input type="email" placeholder="your email" class="box">
-            <input type="tel" placeholder="subject" class="box">
-            <textarea placeholder="your message" class="box" cols="30" rows="10"></textarea>
-            <input type="submit" value="send message" class="btn">
+            <h3>votre belle commentire</h3>
+            <textarea placeholder="votre message" class="box" cols="30" rows="10"></textarea>
+            <input type="submit" value="envoyer message" class="btn">
         </form>
 
     </div>
@@ -391,44 +205,28 @@
     <div class="box-container">
 
         <div class="box">
-            <h3>our branches</h3>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i> india </a>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i> japan </a>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i> france </a>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i> russia </a>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i> USA </a>
+            <?php if(!isset($_SESSION["nom"])){ ?>
+                <a href="admine/index.php"> <i class="fas fa-arrow-right"></i> connexion des admines </a>
+            <?php } ?>
         </div>
 
         <div class="box">
-            <h3>quick links</h3>
-            <a href="#"> <i class="fas fa-arrow-right"></i> home </a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> vehicles </a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> services </a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> featured </a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> reviews </a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> contact </a>
+            <h3>info de contact</h3>
+            <a href="#"> <i class="fas fa-phone"></i>+222 43 85 52 80 </a>
+            <a href="#"> <i class="fas fa-phone"></i> +222 41 89 26 87 </a>
+            <a href="#"> <i class="fas fa-phone"></i> +222 41747047</a>
+            <a href="#"> <i class="fas fa-envelope"></i> wettak@gmail.com </a>
         </div>
 
         <div class="box">
-            <h3>contact info</h3>
-            <a href="#"> <i class="fas fa-phone"></i> +123-456-7890 </a>
-            <a href="#"> <i class="fas fa-phone"></i> +111-222-3333 </a>
-            <a href="#"> <i class="fas fa-envelope"></i> shaikhanas@gmail.com </a>
-            <a href="#"> <i class="fas fa-map-marker-alt"></i> mumbai, india - 400104 </a>
-        </div>
-
-        <div class="box">
-            <h3>contact info</h3>
+            <h3>media sociaux</h3>
             <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
             <a hr ef="#"> <i class="fab fa-twitter"></i> twitter </a>
-            <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
-            <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
-            <a href="#"> <i class="fab fa-pinterest"></i> pinterest </a>
         </div>
 
     </div>
 
-    <div class="credit"> created by mr. web designer | all rights reserved </div>
+    <div class="credit">tout les droits sont reserves|<?php echo date("Y") ?></div>
 
 </section>
 
@@ -507,7 +305,7 @@
                 
                 let btn = document.createElement("a");
                 btn.className = "btn";
-                btn.setAttribute("href","#");
+                btn.setAttribute("href",`actions.php?action=louer&matricule=${arraySlise[i][j]["MATRICULE"]}`);
                 btn.appendChild(document.createTextNode("Louer"));
 
                 voiturebox.appendChild(voituresImg);
@@ -517,6 +315,9 @@
 
                 } 
             }
+            let circles = document.createElement("div");
+            circles.className = "swiper-pagination";
+            slide.appendChild(circles);
             section.appendChild(slide);
           }
 </script>
